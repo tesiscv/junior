@@ -652,6 +652,9 @@ class ComentariosComponent {
         if (!this.dataFormularioService.tienePersonal) {
             return { llenos: false, arregloVacio: 'DATOS PERSONALES / PERSONAL DATA' };
         }
+        if (!this.dataFormularioService.tieneSkills) {
+            return { llenos: false, arregloVacio: 'HABILIDADES BLANDAS / SOFT SKILLS' };
+        }
         return { llenos: true, arregloVacio: null };
     }
     verificarArreglos(event) {
@@ -4128,7 +4131,46 @@ class SkillsComponent {
         this.languageService = languageService;
         this.selection = new _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_1__["SelectionModel"](true, []);
         this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_0__["MatTableDataSource"]([
-        // Agrega más elementos si es necesario
+            {
+                "skill": "Comunicación efectiva",
+                "position": 1
+            },
+            {
+                "skill": "Trabajo en equipo",
+                "position": 2
+            },
+            {
+                "skill": "Pensamiento crítico",
+                "position": 3
+            },
+            {
+                "skill": "Resolución de problemas",
+                "position": 4
+            },
+            {
+                "skill": "Adaptabilidad",
+                "position": 5
+            },
+            {
+                "skill": "Gestión del tiempo",
+                "position": 6
+            },
+            {
+                "skill": "Liderazgo",
+                "position": 7
+            },
+            {
+                "skill": "Atención al detalle",
+                "position": 8
+            },
+            {
+                "skill": "Toma de decisiones",
+                "position": 9
+            },
+            {
+                "skill": "Proactividad",
+                "position": 10
+            }
         ]);
         this.skill = '';
         this.selectedLanguage = 'es';
