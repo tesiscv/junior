@@ -4178,6 +4178,18 @@ class SkillsComponent {
         this.selectedLanguage = this.languageService.language; // Establece el idioma predeterminado
         this.languageSubscription = this.languageService.languageTexts$.subscribe(languageTexts => {
             this.languageTexts = languageTexts;
+            // Guardar los IDs de los elementos seleccionados
+            const selectedPositions = this.selection.selected.map(skill => skill.position);
+            // Actualizar los datos sin eliminar los que no están en languageTexts.skills
+            this.dataSource.data = this.dataSource.data.map(skill => {
+                var _a;
+                return (Object.assign(Object.assign({}, skill), { skill: (_a = this.languageTexts.skills[skill.position]) !== null && _a !== void 0 ? _a : skill.skill // Si no hay traducción, mantiene el original
+                 }));
+            });
+            // Restaurar la selección con las referencias actualizadas
+            const updatedSelected = this.dataSource.data.filter(skill => selectedPositions.includes(skill.position));
+            this.selection.clear();
+            updatedSelected.forEach(skill => this.selection.select(skill));
         });
     }
     ngOnInit() {
@@ -6080,7 +6092,19 @@ class LanguageService {
                 descripcionInd: 'Description (Please write in paragraph form)',
                 bienvenido: 'Welcome',
                 tiempoExperiencia: 'Years of professional experience',
-                tiempoExpEtiqueta: 'Total years of professional experience to date'
+                tiempoExpEtiqueta: 'Total years of professional experience to date',
+                skills: {
+                    "1": "Effective Communication",
+                    "2": "Teamwork",
+                    "3": "Critical Thinking",
+                    "4": "Problem Solving",
+                    "5": "Adaptability",
+                    "6": "Time Management",
+                    "7": "Leadership",
+                    "8": "Attention to Detail",
+                    "9": "Decision Making",
+                    "10": "Proactivity"
+                }
                 // Agrega más claves y valores según sea necesario para otros elementos de la interfaz de usuario en inglés
             },
             es: {
@@ -6178,7 +6202,19 @@ class LanguageService {
                 descripcionInd: 'Descripción (Favor de escribirlo en forma de párrafos)',
                 bienvenido: 'Bienvenido',
                 tiempoExperiencia: 'Años de experiencia profesional',
-                tiempoExpEtiqueta: 'Total de años de experiencia profesional a la fecha'
+                tiempoExpEtiqueta: 'Total de años de experiencia profesional a la fecha',
+                skills: {
+                    "1": "Comunicación efectiva",
+                    "2": "Trabajo en equipo",
+                    "3": "Pensamiento crítico",
+                    "4": "Resolución de problemas",
+                    "5": "Adaptabilidad",
+                    "6": "Gestión del tiempo",
+                    "7": "Liderazgo",
+                    "8": "Atención al detalle",
+                    "9": "Toma de decisiones",
+                    "10": "Proactividad"
+                }
                 // Agrega más claves y valores según sea necesario para otros elementos de la interfaz de usuario en español
             }
             // Agrega más idiomas según sea necesario
